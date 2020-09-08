@@ -3,7 +3,9 @@ package com.cgi.dentistapp.dto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -11,17 +13,20 @@ import java.util.Date;
  */
 public class DentistVisitDTO {
 
+    //Validation that letters, whitespace and "-" can only be used for the name
+    //Lisa täpitähtede lubamine
     @Size(min = 1, max = 50)
+    @Pattern(regexp = "^[a-zA-Z-\\s]+",message="tähestikutähed ja - ainult!")
     String dentistName;
 
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date visitTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    LocalDateTime visitTime;
 
     public DentistVisitDTO() {
     }
 
-    public DentistVisitDTO(String dentistName, Date visitTime) {
+    public DentistVisitDTO(String dentistName, LocalDateTime visitTime) {
         this.dentistName = dentistName;
         this.visitTime = visitTime;
     }
@@ -34,11 +39,11 @@ public class DentistVisitDTO {
         this.dentistName = dentistName;
     }
 
-    public Date getVisitTime() {
+    public LocalDateTime getVisitTime() {
         return visitTime;
     }
 
-    public void setVisitTime(Date visitTime) {
+    public void setVisitTime(LocalDateTime visitTime) {
         this.visitTime = visitTime;
     }
 }

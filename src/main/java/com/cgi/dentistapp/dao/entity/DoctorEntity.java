@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table( name = "doctor")
-public class Doctor {
+public class DoctorEntity {
 
     //Defining fields
     @Id
@@ -19,10 +19,10 @@ public class Doctor {
     private String lastName;
 
     //Defining constructors
-    public Doctor() {
+    public DoctorEntity() {
     }
 
-    public Doctor( String firstName, String lastName) {
+    public DoctorEntity(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
