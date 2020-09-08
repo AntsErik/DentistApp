@@ -7,6 +7,18 @@
             <td><input type="text" th:field="*{dentistName}"/></td>
             <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
         </tr>
+        <!-- Plain selection for a doctor -->
+        <div class="custom-select" style="width:200px;" >
+            <select>
+                <option value="0">Vali arst:</option>
+                <option value="1">Ants-Erik Noormägi</option>
+                <option value="2">Tauno Oja</option>
+                <option value="3">Eevald Razumov</option>
+            </select>
+        </div>
+        <!-- Plain selection for the time of the appointment -->
+
+
         <tr>
             <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
             <td><input type="text" th:field="*{visitTime}"/></td>
