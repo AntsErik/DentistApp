@@ -1,11 +1,13 @@
 <html>
+<body>
 
 <div>
     <a href="/"><span>Registreeri</span></a>
     <a href="/visits"><span>Kõik registreeringud</span></a>
 </div>
 
-<body>
-<p th:text="#{registreerimine.ok}">registreerimine.ok</p>
+<table>
+    <tr th:each="item : ${visit_time}" th:text="${arsti.nimi}"></tr>
+</table>
 </body>
 </html>

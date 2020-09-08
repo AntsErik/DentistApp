@@ -1,28 +1,43 @@
 <html>
 <body>
 <form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
+    <div>
+        <a href="/"><span>Registreeri</span></a>
+        <a href="/visits"><span>Kõik registreeringud</span></a>
+    </div>
+
     <table>
+        <!-- Plain selection for a doctor -->
         <tr>
+
             <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
-            <td><input type="text" th:field="*{dentistName}"/></td>
+
+            <td>
+                <div class="custom-select" style="width:200px;">
+                    <select th:field="*{dentistName}">
+                        <option value="0">Rain Mangus</option>
+                        <option value="1">Ants-Erik Noormägi</option>
+                        <option value="2">Tauno Oja</option>
+                        <option value="3">Eevald Razumov</option>
+                    </select>
+                </div>
+            </td>
             <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
         </tr>
-        <!-- Plain selection for a doctor -->
-        <div class="custom-select" style="width:200px;" >
-            <select>
-                <option value="0">Vali arst:</option>
-                <option value="1">Ants-Erik Noormägi</option>
-                <option value="2">Tauno Oja</option>
-                <option value="3">Eevald Razumov</option>
-            </select>
-        </div>
         <!-- Plain selection for the time of the appointment -->
 
-
         <tr>
-            <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
-            <td><input type="text" th:field="*{visitTime}"/></td>
-            <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
+            <div>
+                <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+
+                <td>
+                    <input type="date" id="appointment"
+                           min="2020-09-08" max="2020-12-31"
+                           th:field="*{visitTime}"/>
+                </td>
+                <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
+
+            </div>
         </tr>
         <tr>
             <td>
