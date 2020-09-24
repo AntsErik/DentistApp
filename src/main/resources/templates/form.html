@@ -1,50 +1,73 @@
-<html>
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+
+    <title>Uus Registreerimine</title>
+</head>
+
 <body>
-<form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
     <div>
-        <a href="/"><span>Registreeri</span></a>
-        <a href="/visits"><span>Kõik registreeringud</span></a>
+        <a href="/"><span>Uus</span></a>
+        <a href="/visits"><span>Registreerimised</span></a>
     </div>
 
-    <table>
-        <!-- Plain selection for a doctor -->
-        <tr>
+    <div class="container">
 
-            <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
+        <p class="h4 mb-4">Tee uus registreerimine</p>
 
-            <td>
-                <div class="custom-select" style="width:200px;">
-                    <select th:field="*{dentistName}">
-                        <option value="Rain Mangus">Rain Mangus</option>
-                        <option value="Ants-Erik Noormagi">Ants-Erik Noormagi</option>
-                        <option value="Tauno Oja">Tauno Oja</option>
-                        <option value="Eevald">Eevald</option>
-                    </select>
-                </div>
-            </td>
-            <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
-        </tr>
-        <!-- Plain selection for the time of the appointment -->
 
-        <tr>
-            <div>
-                <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+
+        <form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="POST">
+        <table>
+            <!-- Plain selection for a doctor -->
+            <tr>
+
+                <!-- Adding  a hidden form field for update handling -->
+                <input type="hidden" th:field="*{id}"/>
+
+                <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
 
                 <td>
-                    <input type="datetime-local" id="appointment"
-                           min="2020-09-08 00:00:00" max="2020-12-31 23:59:59"
-                           th:field="*{visitTime}"/>
+                    <div class="custom-select" style="width:200px;">
+                        <select th:field="*{dentistName}">
+                            <option value="Rain Mangus">Rain Mangus</option>
+                            <option value="Ants-Erik Noormagi">Ants-Erik Noormagi</option>
+                            <option value="Tauno Oja">Tauno Oja</option>
+                            <option value="Eevald Razumov">Eevald Razumov</option>
+                        </select>
+                    </div>
                 </td>
-                <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
+                <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
+            </tr>
+            <!-- Plain selection for the time of the appointment -->
 
-            </div>
-        </tr>
-        <tr>
-            <td>
-                <button type="submit" th:text="#{registreeri.visiidile}"></button>
-            </td>
-        </tr>
-    </table>
-</form>
+            <tr>
+                <div>
+                    <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+
+                    <td>
+                        <input type="datetime-local" id="appointment"
+                            min="2020-09-08T00:00" max="2020-12-31T23:59"
+                            th:field="*{visitTime}"/>
+                    </td>
+                    <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
+
+                </div>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" th:text="#{registreeri.visiidile}"></button>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
 </body>
 </html>

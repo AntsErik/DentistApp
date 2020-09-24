@@ -1,5 +1,6 @@
 package com.cgi.dentistapp.dao.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -11,21 +12,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dentist_visit")
+@Table(name="visits")
 public class DentistVisitEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
 
-    @Column(name = "visit_time")
-    private LocalDateTime visitTime;
+    @Column(name="dentist_name")
+    public String dentistName;
+
+    @Column(name="visit_time")
+    public Timestamp visitTime;
 
     public DentistVisitEntity() {
     }
 
-    public DentistVisitEntity(String dentistName, LocalDateTime visitTime) {
-        this.setVisitTime(visitTime);
+    public DentistVisitEntity(Long id, String dentistName, Timestamp visitTime) {
+        this.id = id;
+        this.dentistName = dentistName;
+        this.visitTime = visitTime;
+    }
+
+    public DentistVisitEntity(String dentistName, Timestamp visitTime) {
+        this.dentistName = dentistName;
+        this.visitTime = visitTime;
     }
 
     public Long getId() {
@@ -36,12 +48,28 @@ public class DentistVisitEntity {
         this.id = id;
     }
 
-    public LocalDateTime getVisitTime() {
+    public String getName() {
+        return dentistName;
+    }
+
+    public void setName(String name) {
+        this.dentistName = name;
+    }
+
+    public Timestamp getVisitTime() {
         return visitTime;
     }
 
-    public void setVisitTime(LocalDateTime visitTime) {
+    public void setVisitTime(Timestamp visitTime) {
         this.visitTime = visitTime;
     }
 
+    @Override
+    public String toString() {
+        return "DentistVisitEntity{" +
+                "id=" + id +
+                ", dentistName='" + dentistName + '\'' +
+                ", visitTime=" + visitTime +
+                '}';
+    }
 }

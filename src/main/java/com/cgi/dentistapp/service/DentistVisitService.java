@@ -1,11 +1,14 @@
 package com.cgi.dentistapp.service;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.cgi.dentistapp.dto.DentistVisitDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +23,17 @@ public class DentistVisitService {
     private DentistVisitDao dentistVisitDao;
 
     public void addVisit(String dentistName, LocalDateTime visitTime) {
-        DentistVisitEntity visit = new DentistVisitEntity(dentistName, visitTime);
-        System.out.println("EIKE: ----- print regamine ----");
-        System.out.println("dentistName " + dentistName);
-        System.out.println("visitTime " + visitTime);
+        Timestamp visitTimeStamp = Timestamp.valueOf(visitTime);
+        DentistVisitEntity visit = new DentistVisitEntity(dentistName, visitTimeStamp);
         dentistVisitDao.create(visit);
+        dentistVisitDao.saveVisit(visit);
     }
 
     public List<DentistVisitEntity> listVisits () {
         return dentistVisitDao.getAllVisits();
     }
 
+    public List<DentistVisitDTO> findAll() {
+        return dentistVisitDao.findAll();
+    }
 }
