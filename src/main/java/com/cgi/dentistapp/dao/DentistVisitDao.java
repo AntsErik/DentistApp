@@ -4,8 +4,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.cgi.dentistapp.dto.DentistVisitDTO;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
@@ -37,4 +39,27 @@ public class DentistVisitDao {
     public List<DentistVisitDTO> findAll() {
         return entityManager.createQuery("SELECT e FROM DentistVisitEntity e").getResultList();
     }
+
+    public List<DentistVisitDTO> searchVisits(String theSearchName) {
+        //Hetkeline hibernate session
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query query = null;
+        List<DentistVisitDTO> visits = null;
+
+        // Otsing ainult nime järgi, juhul kui theSearchName ei ole tühi String
+        if (theSearchName != null && theSearchName.trim().length() > 0) {
+            // Otsingumootor arsti nime ja kuupäeva järgi ... case insensitive
+            visits = entityManager.createQuery(
+                    "SELECT e FROM DentistVisitEntity e " +
+                            "WHERE LOWER(e.dentistName) LIKE '%"+ theSearchName.toLowerCase() + "%' " +
+                            "OR e.visitTime LIKE '%" + theSearchName + "%'").getResultList();
+        } else {
+            // theSearchName on tühi tagasta kõik visiidid
+            visits = entityManager.createQuery("SELECT e FROM DentistVisitEntity e").getResultList();
+        }
+        // tagasta tulemus
+        return visits;
+    }
 }
+

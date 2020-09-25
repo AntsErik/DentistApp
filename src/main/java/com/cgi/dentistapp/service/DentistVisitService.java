@@ -36,4 +36,9 @@ public class DentistVisitService {
     public List<DentistVisitDTO> findAll() {
         return dentistVisitDao.findAll();
     }
+
+    //Delegeerime otsingu edasi DAO-sse
+    public List<DentistVisitDTO> searchVisits(String theSearchName) {
+        return dentistVisitDao.searchVisits(theSearchName);
+    }
 }

@@ -62,5 +62,17 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
 
         return "results";
     }
+    //Mappingu lisamine otsingumootori jaoks
+    @GetMapping("/search")
+    public String searchVisits(@RequestParam("theSearchName") String theSearchName, Model theModel) {
+
+        // Otsime visiteid Service-st
+        List<DentistVisitDTO> theVisits = dentistVisitService.searchVisits(theSearchName);
+
+        // add the customers to the model
+        theModel.addAttribute("visits", theVisits);
+
+        return "visits";
+    }
 
 }
