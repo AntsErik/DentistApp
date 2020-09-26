@@ -20,35 +20,25 @@
 
 <div class="container">
 
-    <!--Otsingumootori jaoks kastikese ja nupu lisamine-->
-    <form action="search" method="GET">Otsing:<input type="text" name="theSearchName" />
-
-        <input type="submit" value="Search" class="add-button" />
-    </form>
+    <!--Lisan "delete" nupu-->
+    <a th:href="@{/delete(visitId=${visit.id})}"
+       class="btn btn-danger btn-sm"
+       onclick="if (!(confirm('Oled Sa kindel, et soovid registreerimist kustutada?'))) return false">
+        Kustuta
+    </a>
 
 <table class="table table-bordered table-striped">
-    <thead class="thead-dark">
+    <thead class="thead-dark"/>
         <tr>
-            <th>Arsti nimi</th>
-            <th>Visiidi kuupäev ja kellaaeg</th>
-            <th></th>
+            <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
+            <td><p th:text="${visit.dentistName}" /></td>
         </tr>
-    </thead>
-
-    <tbody>
-        <tr th:each="tempVisit : ${visits}">
-            <td th:text="${tempVisit.dentistName}" />
-            <td th:text="${tempVisit.visitTime}" />
-            <td>
-                <!-- Lisan nupu registreeringu detailseks vaatamiseks -->
-                <a th:href="@{/detail(visitId=${tempVisit.id})}"
-                   class="btn btn-info btn-sm">
-                    Vaata lähemalt
-                </a>
-            </td>
+        <tr>
+            <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+            <td><p th:text="${visit.visitTime}" /></td>
         </tr>
-    </tbody>
 </table>
+
 </div>
 </body>
 </html>

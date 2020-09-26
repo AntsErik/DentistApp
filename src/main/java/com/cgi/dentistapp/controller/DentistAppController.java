@@ -42,8 +42,6 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         return "visits";
     }
 
-
-    
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/results").setViewName("results");
@@ -69,10 +67,33 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         // Otsime visiteid Service-st
         List<DentistVisitDTO> theVisits = dentistVisitService.searchVisits(theSearchName);
 
-        // add the customers to the model
+        // lisamine registreerimiste mudelile
         theModel.addAttribute("visits", theVisits);
 
         return "visits";
+    }
+
+    @GetMapping("/detail")
+    public String detail(@RequestParam("visitId") Long theId, Model theModel) {
+        System.out.println("----@Controller----");
+        //laeme registreeringu Service-st
+        DentistVisitEntity visit = dentistVisitService.findById(theId);
+
+        //lisame registreeringu mudelina, et automaatselt täita Registreerimisvormi väljad
+        theModel.addAttribute("visit", visit);
+
+        System.out.println("Näitame registreeringut: " + visit);
+        System.out.println(theModel);
+        //send over to our form
+        return "detail-form";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("visitId") Long theId) {
+        //kusuta registreering
+        dentistVisitService.deleteById(theId);
+        //redirect to employees list
+        return "redirect:/visits";
     }
 
 }

@@ -41,4 +41,14 @@ public class DentistVisitService {
     public List<DentistVisitDTO> searchVisits(String theSearchName) {
         return dentistVisitDao.searchVisits(theSearchName);
     }
+
+    //Delegeerime otsingu Primary Key järgi edasi DAO-sse
+    public DentistVisitEntity findById(Long theId) {
+        return dentistVisitDao.findById(theId);
+    }
+
+    //Delegeerime kustutamise edasi DAO-sse
+    public void deleteById(Long theId) {
+        dentistVisitDao.deleteById(theId);
+    }
 }

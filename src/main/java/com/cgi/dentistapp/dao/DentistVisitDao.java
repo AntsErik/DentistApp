@@ -61,5 +61,29 @@ public class DentistVisitDao {
         // tagasta tulemus
         return visits;
     }
+
+    public DentistVisitEntity findById(Long theId) {
+
+        System.out.println("-----@DAO----");
+        //Hetkeline hibernate session
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        System.out.println("----UURIME REGISTREERIMIST--- Tema ID on: " + theId);
+        //Küsime registreeringu
+        DentistVisitEntity visit = (DentistVisitEntity) entityManager.createQuery(
+                "SELECT e FROM DentistVisitEntity e WHERE e.id = " + theId).getSingleResult();
+
+        System.out.println(visit);
+        //Tagastame registreeringu
+        return visit;
+    }
+
+    public void deleteById(Long theId) {
+        //Hetkeline hibernate session
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        //Kustutame visiidi vastavalt objekti primary key-le
+        entityManager.createQuery("DELETE FROM DentistVisitEntity WHERE id = " + theId).executeUpdate();
+    }
 }
 
