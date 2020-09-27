@@ -7,33 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
 
-    <title>Uus Registreerimine</title>
+    <title>
+        <p th:text="#{new.visit}" class="h4 mb-4">new.visit</p>
+    </title>
 </head>
-
 <body>
-    <div>
-        <a href="/"><span>Uus</span></a>
-        <a href="/visits"><span>Registreerimised</span></a>
-    </div>
-
-    <div class="container">
-
-        <p class="h4 mb-4">Registreerimisvorm</p>
-
-
-
-        <form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="POST">
-        <table>
-            <!-- Plain selection for a doctor -->
+<div>
+    <a href="/">
+            <span>
+                <p th:text="#{new.visit}">new.visit</p>
+            </span>
+    </a>
+    <a href="/visits">
+            <span>
+                <p th:text="#{all.visits}">all.visits</p>
+            </span>
+    </a>
+</div>
+<div class="container">
+    <form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="POST">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
             <tr>
-
+                <th>
+                    <p th:text="#{registreerimis.vorm}" >registreerimis.vorm</p>
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
                 <!-- Adding  a hidden form field for update handling -->
                 <input type="hidden" th:field="*{id}"/>
-
+                <!-- Plain selection for a doctor -->
                 <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
-
                 <td>
                     <div class="custom-select" style="width:200px;">
                         <select th:field="*{dentistName}">
@@ -46,28 +56,21 @@
                 </td>
                 <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
             </tr>
-            <!-- Plain selection for the time of the appointment -->
-
             <tr>
-                <div>
-                    <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
-
-                    <td>
-                        <input type="datetime-local" id="appointment"
-                            min="2020-09-08T00:00" max="2020-12-31T23:59"
-                            th:field="*{visitTime}"/>
-                    </td>
-                    <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
-
-                </div>
-            </tr>
-            <tr>
+                <!-- Plain selection for the time of the appointment -->
+                <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
                 <td>
-                    <button type="submit" th:text="#{registreeri.visiidile}"></button>
+                        <input type="datetime-local" id="appointment"
+                               min="2020-09-28T00:00" max="2020-12-31T23:59"
+                               th:field="*{visitTime}" style="width:200px;"/>
                 </td>
             </tr>
+            <tbody>
         </table>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-primary" th:text="#{register.button}">register.button</button>
+        <br>
+        <p style="color:red; font-size:160%;" th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</p>
+    </form>
+</div>
 </body>
 </html>

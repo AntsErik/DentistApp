@@ -1,9 +1,7 @@
 package com.cgi.dentistapp.service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -23,14 +21,10 @@ public class DentistVisitService {
     private DentistVisitDao dentistVisitDao;
 
     public void addVisit(String dentistName, LocalDateTime visitTime) {
-        Timestamp visitTimeStamp = Timestamp.valueOf(visitTime);
-        DentistVisitEntity visit = new DentistVisitEntity(dentistName, visitTimeStamp);
-        dentistVisitDao.create(visit);
-        dentistVisitDao.saveVisit(visit);
-    }
-
-    public List<DentistVisitEntity> listVisits () {
-        return dentistVisitDao.getAllVisits();
+            Timestamp visitTimeStamp = Timestamp.valueOf(visitTime);
+            DentistVisitEntity visit = new DentistVisitEntity(dentistName, visitTimeStamp);
+            dentistVisitDao.create(visit);
+            dentistVisitDao.saveVisit(visit);
     }
 
     public List<DentistVisitDTO> findAll() {

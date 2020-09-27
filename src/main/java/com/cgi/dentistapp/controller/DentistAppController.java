@@ -4,7 +4,6 @@ import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
 import com.cgi.dentistapp.dto.DentistVisitDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +13,8 @@ import com.cgi.dentistapp.service.DentistVisitService;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Controller
@@ -36,6 +33,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     public String showAllVisits(Model theModel) {
         //Registreerimised andmebaasist
         List<DentistVisitDTO> theVisits = dentistVisitService.findAll();
+
         //Lisamine spring mudelile
         theModel.addAttribute("visits", theVisits);
 
@@ -54,11 +52,12 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
 
 
     @PostMapping("/")
-    public String postRegisterForm(@ModelAttribute("visits") DentistVisitDTO dentistVisitDTO) {
-
+    public String postRegisterForm(@Valid DentistVisitDTO dentistVisitDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
         dentistVisitService.addVisit(dentistVisitDTO.getDentistName(), dentistVisitDTO.getVisitTime());
-
-        return "results";
+        return "redirect:/results";
     }
     //Mappingu lisamine otsingumootori jaoks
     @GetMapping("/search")
@@ -75,15 +74,26 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
 
     @GetMapping("/detail")
     public String detail(@RequestParam("visitId") Long theId, Model theModel) {
-        System.out.println("----@Controller----");
         //laeme registreeringu Service-st
         DentistVisitEntity visit = dentistVisitService.findById(theId);
 
         //lisame registreeringu mudelina, et automaatselt täita Registreerimisvormi väljad
         theModel.addAttribute("visit", visit);
 
-        System.out.println("Näitame registreeringut: " + visit);
-        System.out.println(theModel);
+        //send over to our form
+        return "detail-form";
+    }
+
+    //Funkstionaalsuse põhi uuendamiseks puudub...
+    @PostMapping("/update")
+    public String update(@RequestParam("visitId") Long theId, Model theModel) {
+
+        //laeme registreeringu Service-st
+        DentistVisitEntity visit = dentistVisitService.findById(theId);
+
+        //lisame registreeringu mudelina, et automaatselt täita Registreerimisvormi väljad
+        theModel.addAttribute("visit", visit);
+
         //send over to our form
         return "detail-form";
     }

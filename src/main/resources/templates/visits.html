@@ -7,50 +7,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
 
-    <title>Kõik Registreerimised</title>
+    <title>
+        <p th:text="#{all.visits}" class="h4 mb-4">all.visits</p>
+    </title>
 </head>
 <body>
-
 <div>
-    <a href="/"><span>Uus</span></a>
-    <a href="/visits"><span>Registreerimised</span></a>
+    <a href="/">
+            <span>
+                <p th:text="#{new.visit}">new.visit</p>
+            </span>
+    </a>
+    <a href="/visits">
+            <span>
+                <p th:text="#{all.visits}">all.visits</p>
+            </span>
+    </a>
 </div>
-
-<div class="container">
-
-    <!--Otsingumootori jaoks kastikese ja nupu lisamine-->
-    <form action="search" method="GET">Otsing:<input type="text" name="theSearchName" />
-
-        <input type="submit" value="Search" class="add-button" />
-    </form>
-
-<table class="table table-bordered table-striped">
-    <thead class="thead-dark">
+<div class="container" >
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
         <tr>
-            <th>Arsti nimi</th>
-            <th>Visiidi kuupäev ja kellaaeg</th>
-            <th></th>
+            <th>
+                <p th:text="#{arsti.nimi}">arsti.nimi</p>
+            </th>
+            <th>
+                <p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p>
+            </th>
+            <th>
+                <!--Otsingumootori jaoks kastikese ja nupu lisamine-->
+                <form action="search" method="GET">
+                    <input type="text" name="theSearchName" placeholder="Otsi.."/>
+                    <button type="submit" th:text="#{search.button}"  class="btn btn-light"/>
+                </form>
+            </th>
         </tr>
-    </thead>
-
-    <tbody>
+        </thead>
+        <tbody>
         <tr th:each="tempVisit : ${visits}">
-            <td th:text="${tempVisit.dentistName}" />
-            <td th:text="${tempVisit.visitTime}" />
+            <td th:text="${tempVisit.dentistName}"/>
+            <td th:text="${tempVisit.visitTime}"/>
             <td>
                 <!-- Lisan nupu registreeringu detailseks vaatamiseks -->
                 <a th:href="@{/detail(visitId=${tempVisit.id})}"
-                   class="btn btn-info btn-sm">
-                    Vaata lähemalt
+                   class="btn btn-info btn-sm"
+                   th:text="#{detail.view.button}">
+                    detail.view.button
                 </a>
             </td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
-
-<!--<tr th:each="item : ${visit_time}" th:text="${arsti.nimi}"></tr> -->

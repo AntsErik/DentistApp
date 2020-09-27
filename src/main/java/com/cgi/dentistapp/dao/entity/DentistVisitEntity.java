@@ -21,10 +21,10 @@ public class DentistVisitEntity {
     private Long id;
 
     @Column(name="dentist_name")
-    public String dentistName;
+    private String dentistName;
 
     @Column(name="visit_time")
-    public Timestamp visitTime;
+    private Timestamp visitTime;
 
     public DentistVisitEntity() {
     }
@@ -48,12 +48,12 @@ public class DentistVisitEntity {
         this.id = id;
     }
 
-    public String getName() {
+    public String getDentistName() {
         return dentistName;
     }
 
-    public void setName(String name) {
-        this.dentistName = name;
+    public void setDentistName(String dentistName) {
+        this.dentistName = dentistName;
     }
 
     public Timestamp getVisitTime() {

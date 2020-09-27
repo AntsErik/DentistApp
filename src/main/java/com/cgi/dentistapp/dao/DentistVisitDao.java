@@ -4,10 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.cgi.dentistapp.dto.DentistVisitDTO;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
@@ -22,10 +20,6 @@ public class DentistVisitDao {
 
     public void create(DentistVisitEntity visit) {
         entityManager.persist(visit);
-    }
-
-    public List<DentistVisitEntity> getAllVisits() {
-        return entityManager.createQuery("SELECT e FROM visits e").getResultList();
     }
 
     public void saveVisit(DentistVisitEntity visit) {
@@ -64,16 +58,13 @@ public class DentistVisitDao {
 
     public DentistVisitEntity findById(Long theId) {
 
-        System.out.println("-----@DAO----");
         //Hetkeline hibernate session
         Session currentSession = entityManager.unwrap(Session.class);
 
-        System.out.println("----UURIME REGISTREERIMIST--- Tema ID on: " + theId);
         //Küsime registreeringu
         DentistVisitEntity visit = (DentistVisitEntity) entityManager.createQuery(
                 "SELECT e FROM DentistVisitEntity e WHERE e.id = " + theId).getSingleResult();
 
-        System.out.println(visit);
         //Tagastame registreeringu
         return visit;
     }

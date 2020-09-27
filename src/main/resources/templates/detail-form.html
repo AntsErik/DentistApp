@@ -7,40 +7,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
 
-    <title>Kõik Registreerimised</title>
+    <title>
+        <p th:text="#{all.visits}" class="h4 mb-4">all.visits</p>
+    </title>
 </head>
 <body>
-
 <div>
-    <a href="/"><span>Uus</span></a>
-    <a href="/visits"><span>Registreerimised</span></a>
-</div>
-
-<div class="container">
-
-    <!--Lisan "delete" nupu-->
-    <a th:href="@{/delete(visitId=${visit.id})}"
-       class="btn btn-danger btn-sm"
-       onclick="if (!(confirm('Oled Sa kindel, et soovid registreerimist kustutada?'))) return false">
-        Kustuta
+    <a href="/">
+            <span>
+                <p th:text="#{new.visit}">new.visit</p>
+            </span>
     </a>
-
-<table class="table table-bordered table-striped">
-    <thead class="thead-dark"/>
-        <tr>
-            <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
-            <td><p th:text="${visit.dentistName}" /></td>
-        </tr>
-        <tr>
-            <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
-            <td><p th:text="${visit.visitTime}" /></td>
-        </tr>
-</table>
-
+    <a href="/visits">
+            <span>
+                <p th:text="#{all.visits}">all.visits</p>
+            </span>
+    </a>
+</div>
+<div class="container">
+    <form action="#" th:action="@{/update(visitId=${visit.id})}" th:object="${visit}" method="POST">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>
+                    <p th:text="#{detail.vaade}">detail.vaade</p>
+                </th>
+                <th>
+                    <!--Lisan "delete" nupu-->
+                    <a th:href="@{/delete(visitId=${visit.id})}"
+                       class="btn btn-danger btn-sm"
+                       onclick="if (!(confirm('Oled Sa kindel, et soovid registreerimist kustutada?'))) return false"
+                       th:text="#{delete.button}">
+                        delete.button
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tr>
+                <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
+                <td><input type="text" th:value="*{dentistName}"/></td>
+            </tr>
+            <tr>
+                <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+                <td><input type="text" th:value="*{visitTime}"/></td>
+            </tr>
+        </table>
+        <!-- Lisan nupu registreeringu muutmiseks (puudub funkstionaalsus)-->
+        <button type="submit" class="btn btn-info btn-sm"
+            onclick="if (!(confirm('Oled Sa kindel, et soovid registreerimist muuta?'))) return false"
+            th:text="#{update.button}">
+            update.button
+        </button>
+    </form>
 </div>
 </body>
 </html>
-
-<!--<tr th:each="item : ${visit_time}" th:text="${arsti.nimi}"></tr> -->

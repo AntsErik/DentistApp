@@ -7,18 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
 
-    <title>Registreerimise kinnitus</title>
+    <title>
+        <p th:text="#{visit.confirmation}" class="h4 mb-4">visit.confirmation</p>
+    </title>
 </head>
 <body>
-
 <div>
-    <a href="/"><span>Registreeri</span></a>
-    <a href="/visits"><span>Kõik registreeringud</span></a>
+    <a href="/">
+            <span>
+                <p th:text="#{new.visit}">new.visit</p>
+            </span>
+    </a>
+    <a href="/visits">
+            <span>
+                <p th:text="#{all.visits}">all.visits</p>
+            </span>
+    </a>
 </div>
-
-
 <p th:text="#{registreerimine.ok}">registreerimine.ok</p>
 </body>
 </html>
